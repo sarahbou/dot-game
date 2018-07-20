@@ -1,0 +1,532 @@
+/** * VARIABLES * **/
+
+/* font */
+$default-font: 'Nunito', sans-serif;
+$bold: 900;
+
+
+/* colors */
+$pink: #f67280;
+$green: #a6d866;
+$blue: #75d2e4;
+$darkgray: #54595c;
+$white: #ffffff;
+
+/* themes */
+.pink-theme {
+  --themeColor: #f67280;
+  --themeColorLight: #faacb4;
+  --themeColorDark: #f45a6a;
+  --themeColorRGB: 246, 114, 128;
+  
+}
+
+.green-theme {
+  --themeColor: #a6d866;
+  --themeColorLight: #c2e497;
+  --themeColorDark: #90c54d;
+  --themeColorRGB: 166, 216, 102;
+}
+
+.blue-theme {
+  --themeColor: #75d2e4;
+  --themeColorLight: #a8e3ee;
+  --themeColorDark: #5cc2d6;
+  --themeColorRGB: 117, 210, 228;
+}
+
+$breakpoint: 510px;
+
+%box-shadow {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+}
+
+%start-button {
+  p {
+    &:before {
+      content: url('https://cdn.glitch.com/289fdaa2-1f7e-4d1c-b12c-624610132a50%2Fplay-button.svg?1525560931388');
+      display: inline-block;
+      margin-right: 8px;
+      vertical-align: middle;
+      width: 10px; 
+    }
+  }
+}
+
+/* mixins */
+
+@mixin default-transition {
+  transition: 0.2s ease-in-out, background-color 0.2s ease-out, color 0.1s ease-out, border 0.1s ease-out;
+}
+
+
+
+/* browser overrides */
+* {
+   box-sizing: border-box; 
+}
+
+*:focus {
+  outline: none;
+}
+
+p {
+   margin: 0; 
+}
+
+/** * STYLES * **/
+body {
+ color: $darkgray;
+ font-family: $default-font;
+ font-size: 14px;
+ font-weight: 600;
+ margin: 0;
+ position: relative;
+ letter-spacing: 1px;
+ background: var(--themeColorLight);
+  -webkit-font-smoothing: antialiased;
+  text-transform: uppercase;
+}
+
+main {
+  margin: 0 auto;
+  max-width: 100%;
+  padding: 0 15px;
+  position: relative;
+  width: 400px;
+  
+  @media (min-width: $breakpoint) {
+    padding: 0;
+  }
+}
+
+/* intro screen */
+.intro {
+  background: $white;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  color: $darkgray;
+  height: 100%;
+  left: 0;
+  margin: 0 14px;
+  padding: 15px;
+  position: absolute;
+  right: 0;
+  transform: translateY(0);
+  transition: all 1s ease-out;
+  text-align: center;
+  max-width: 100%;
+  z-index: 7;
+  
+  @media (min-width: $breakpoint) {
+    height: 600px;
+    margin: 0;
+  }
+  
+  h1 {
+    font-size: 55px; 
+    margin-bottom: 25px;
+    
+    span {
+      background: rgba(84, 89, 92, 0.6);
+      border: 1.5px solid $darkgray;
+      border-radius: 25px;
+      display: inline-block;
+      height: 44px;
+      width: 44px;
+    }
+    
+    @media (min-width: $breakpoint) {
+       font-size: 60px; 
+    }
+  }
+  
+  h2 {
+    font-size: 16px; 
+    font-weight: normal; 
+    margin: 0;
+  }
+  
+  &.initialize {
+     transform: translateY(-100%); 
+  }
+  
+  @media (min-width: $breakpoint) {
+       font-size: 18px; 
+    }
+  
+}
+
+.color-options {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 25px;
+  
+  .option {
+    cursor: pointer;
+    text-align: center;
+  }
+    
+  .color {
+      border-radius: 30px;
+      border: 1.5px solid transparent;
+      content: '';
+      display: block;
+      height: 25px;
+      margin:0 auto 8px auto;
+      width: 25px;
+      transition: all 0.3s ease;
+
+    &:hover {
+      transform: scale(1.15);
+    }
+  }
+      
+  #pink-option {
+        .color {
+          background: $pink; 
+      }
+  }
+      
+  #green-option {
+      .color {
+       background: $green; 
+    }
+  }
+      
+    #blue-option {
+        .color {
+          background: $blue; 
+      }
+  }
+}
+
+.current-theme {
+  .color {
+     border-color: $darkgray;
+  }
+}
+
+#initialize-game {
+   color: $white;
+    background: var(--themeColor); 
+    border-radius: 20px;
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 85px; 
+    transition: background-color 0.5s ease;
+    @extend %start-button;
+    @extend %box-shadow;
+    
+    &:hover {
+       background: var(--themeColorDark); 
+    }
+    
+    p {
+      padding: 10px 24px 8px 24px;
+    }
+  }
+
+
+/* game field */
+.dot-generator-bar {
+  background: $darkgray;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  height: 25px;
+  left: 0;
+  margin: 0 14px;
+  max-width: 100%;
+  position: absolute;
+  right: 0;
+  z-index: 3;
+  
+  @media (min-width: $breakpoint) {
+    margin: 0;
+  }
+}
+
+.game-field {
+  background: radial-gradient($white 20%, #f1f1f1 60%);  
+  height: 575px;
+  overflow: hidden;
+  position: relative;
+  top: -55px;
+  width: 100%;
+  z-index: 0;
+  
+    /* pause overlay */ 
+    &:after {
+      align-items: center;
+      background: rgba(83, 89, 91, 0.7);
+      color: $white;
+      content: 'PAUSED';
+      display: flex;
+      flex-direction: column;
+      font-size: 40px;
+      height: 580px;
+      justify-content: center;
+      left: 0;
+      right: 0;
+      opacity: 0;
+      padding-top: 10%;
+      position: absolute;
+      transform: translateY(-100%);
+      width: 100%;
+      z-index: 10;
+      @include default-transition;
+    }
+  
+  &.paused {    
+    &:after {
+      opacity: 1;
+      transform: translateY(0);
+      @include default-transition;
+    }
+  }
+}
+
+/* controls */
+#game-controls {
+  background: $darkgray;
+  border-radius: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: -90px;
+  padding: 24px 12px 16px 12px;
+  position: relative;
+  
+  p {
+    color: $white; 
+  }
+  
+  &:before {
+    background: $darkgray;
+    border-radius: 124px 124px 0 0;
+    content: ''; 
+    height: 85px;
+    margin: 0 27%;
+    position: absolute;
+    top: -41px;
+    width: 40%;
+    z-index: 1;
+  }
+  
+  
+  @media (min-width: $breakpoint) {
+    flex-wrap: nowrap;
+  }
+}
+
+
+
+.control {
+   width: 100%;
+   z-index: 2;
+}
+
+.slider {
+  margin: 25px auto;
+  max-width: 150px;
+  order: 2;
+  padding-top: 10px;    
+  position: relative;
+  
+  p {
+     font-size: 16px; 
+  }
+  
+  @media (min-width: $breakpoint) {
+    margin: 0;
+    order: 1;
+    width: 30%;
+  }
+}
+
+#speed-slider {
+  -webkit-appearance: none;
+  background: darken($darkgray, 10%);
+  border-radius: 8px;
+  box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.3);
+  height: 8px; 
+  margin: 0;
+  outline: none; 
+  width: 100%; 
+  
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none; 
+    background: var(--themeColor); 
+    border-radius: 10px;
+    cursor: pointer;
+    display: inline-block;
+    height: 14px;
+    margin-top: 1px;
+    position: relative;
+    transition: all .2s ease-in-out;
+    width: 14px;   
+    z-index: 6;
+    @extend %box-shadow;
+    
+    &:hover {
+       transform: scale(1.2);
+    }
+  }
+}
+
+#range-value-bar {
+  border-radius: 5px;
+  background-color: var(--themeColor); 
+  content:"0";
+  height: 8px;
+  margin: 0;
+  position: absolute;
+  top: 16px;
+  width: 100%;
+  z-index: 5;
+}
+
+#speed {
+  color: var(--themeColor); 
+  font-weight: $bold; 
+}
+
+.speed-output {
+   margin-top: 6px; 
+}
+
+.user-score {
+  order: 1;
+  text-align: center;
+  
+  h3 {
+    color: $white;
+    font-size: 56px;
+    font-weight: $bold;
+    line-height: 1em;
+    margin: -48px 0 7px 0; 
+  }
+  
+  p {
+   font-size: 12px; 
+  }
+  
+  @media (min-width: $breakpoint) {
+    order: 2;
+    width: 40%;
+  }
+}
+
+
+.game-control-btn {  
+  order: 3;
+  text-align: center;
+  
+  .btn {
+    background: var(--themeColor); 
+    border-radius: 20px;
+    cursor: pointer;
+    display: inline-block;
+    transition: background-color 0.5s ease;
+    @extend %box-shadow;
+    
+    &:hover {
+       background: var(--themeColorDark); 
+    }
+    
+    p {
+      padding: 10px 16px 8px 16px;
+      
+      &:before {
+        display: inline-block;
+        margin-right: 8px;
+        vertical-align: middle;
+        width: 10px; 
+      }
+    }
+  }
+  
+  @media (min-width: $breakpoint) {
+    order: 3;
+    width: 30%;
+  }
+}
+
+#start-btn {
+  @extend %start-button;
+}
+
+#pause-btn {
+  p {
+      &:before {
+        content: url('https://cdn.glitch.com/289fdaa2-1f7e-4d1c-b12c-624610132a50%2Fpause-button.svg?1525560929012');
+    }
+  }
+}
+
+.game-control-btn .btn-state-inactive {
+    display: none;
+}
+
+.start-over {
+   -webkit-appearance: none;
+  background: transparent;
+  border: none;
+  color: $white;
+  cursor: pointer;
+  font-size: 12px;
+  font-family: $default-font;
+  margin-top: 15px;
+  text-decoration: underline;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  
+  &:hover {
+    color: var(--themeColor);
+  }
+}
+
+
+/* dots */
+.dot {
+  animation: dotsInPlay;
+  animation-play-state: paused;
+  background-color: rgba(var(--themeColorRGB), 0.7) /*rgba(246, 114, 128, 0.7)*/;
+  border-radius: 50%;
+  border: 1.5px solid var(--themeColor); ;
+  cursor: pointer;
+  opacity: 1;
+  position: absolute;
+  top: 0;
+  z-index: 10;
+  @include default-transition;
+  
+  &:hover {
+      background-color: rgba(var(--themeColorRGB), 0.9);
+  }
+      
+  &.pop {
+    opacity: 0;
+    transform: scale(1.5);
+    @include default-transition;
+  }
+  
+  &.inplay {
+    animation-play-state: running;
+  }
+}
+
+
+@keyframes dotsInPlay {
+  0% {
+    top: 0;
+  }
+  
+  99.99% {
+    top: 1000px;
+  }
+  
+  100% {
+    display: none;
+  }
+}
