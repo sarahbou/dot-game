@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dot Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Nunito:600,900" rel="stylesheet">
+  
+</head>
+  
+<body class="pink-theme">
+  <main id="dot-game">
+    <section class="intro">
+      <h1>
+        D<span></span>t Game
+      </h1>
+      <h2>
+        Choose your color adventure:
+      </h2>
+      <div class="color-options">
+        <div id="pink-option" class="option current-theme">
+          <span class="color"></span>
+        </div>
+        <div id="green-option" class="option">
+          <span class="color"></span>
+        </div>
+        <div id="blue-option" class="option">
+          <span class="color"></span>
+        </div>
+      </div>
+      <div id="initialize-game" class="btn particles-btn">
+          <p>
+            start
+          </p>
+        </div>
+    </section>
+    
+    <div class="dot-generator-bar"></div>
+    
+    <section class="game-field"> 
+    </section>
+    
+		<section id="game-controls">
+      <div class="control slider">
+        <input type="range" min="10" max="100" value="10" id="speed-slider" class="range-slider">
+        <span id="range-value-bar"></span>
+        <p class="speed-output">
+          Speed: <span id="speed">10</span>
+        </p>
+      </div>
+      <div class="control user-score">
+        <h3 class="score">
+          0
+        </h3>
+        <p>
+          your score
+        </p>
+      </div>
+      <div class="control game-control-btn">
+        <div id="start-btn" class="btn">
+          <p>
+            start
+          </p>
+        </div>
+        <div id="pause-btn" class="btn btn-state-inactive">
+          <p>
+            pause
+          </p>
+        </div>
+        <button class="start-over" onclick="startOver()">start over</button>
+      </div>
+    </section>
+  </main>
+  
+  <script>
+    // Make speed slider colored on slide to the left of the thumb/handle
+    // declare constants
+    const rangeSlider = document.querySelector('.range-slider');
+    const rangeValueBar = document.querySelector('#range-value-bar');
+    const rangeValue = document.querySelector('#speed');
+
+    let isDown = false;
+
+    function dragHandler() {
+      isDown = !isDown;
+
+    }
+
+    function dragOn(e) {
+      if (!isDown) return;
+      rangeValueHandler();
+    }
+    
+    // Slider thumb position calculation
+    function rangeValueHandler() {
+      rangeValueBar.style.setProperty('width', `${rangeSlider.value}%`);
+      
+    }
+    
+    // Slider thumb event listeners
+    rangeValueHandler();
+    rangeSlider.addEventListener('mousedown', dragHandler);
+    rangeSlider.addEventListener('mousemove', dragOn);
+    rangeSlider.addEventListener('mouseup', dragHandler);
+    rangeSlider.addEventListener('click', rangeValueHandler);
+  </script>
+  
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="/index.js"></script>
+  
+  <script>
+    // Start over link
+   function startOver() {
+      location.reload();
+    }   
+    
+    // Theme color change functions   
+    $( "#pink-option" ).click(function() {
+      $('body').removeAttr('class').addClass('pink-theme');
+      $(this).addClass('current-theme').siblings().removeClass('current-theme');
+    });
+    
+    $( "#green-option" ).click(function() {
+      $('body').removeAttr('class').addClass('green-theme');
+      $(this).addClass('current-theme').siblings().removeClass('current-theme');
+    });
+    
+    $( "#blue-option" ).click(function() {
+      $('body').removeAttr('class').addClass('blue-theme');
+      $(this).addClass('current-theme').siblings().removeClass('current-theme');
+    });
+    
+    $( "#initialize-game" ).click(function() {
+       $('.intro').addClass('initialize'); 
+    });
+  </script>
+</body>
+
+</html>
