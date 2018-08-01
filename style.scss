@@ -12,6 +12,9 @@ $blue: #75d2e4;
 $darkgray: #54595c;
 $white: #ffffff;
 
+$dotalpha: 0.7;
+$dotalphahover: 0.9;
+
 /* themes */
 .pink-theme {
   --themeColor: #f67280;
@@ -19,7 +22,7 @@ $white: #ffffff;
   --themeColorDark: #f45a6a;
   --themeColorRGB: 246, 114, 128;
   
-}
+} 
 
 .green-theme {
   --themeColor: #a6d866;
@@ -491,7 +494,7 @@ main {
 .dot {
   animation: dotsInPlay;
   animation-play-state: paused;
-  background-color: rgba(var(--themeColorRGB), 0.7) /*rgba(246, 114, 128, 0.7)*/;
+  background-color: rgba($darkgray, $dotalpha) /*rgba(246, 114, 128, 0.7)*/;
   border-radius: 50%;
   border: 1.5px solid var(--themeColor); ;
   cursor: pointer;
@@ -501,9 +504,6 @@ main {
   z-index: 10;
   @include default-transition;
   
-  &:hover {
-      background-color: rgba(var(--themeColorRGB), 0.9);
-  }
       
   &.pop {
     opacity: 0;
@@ -515,6 +515,38 @@ main {
     animation-play-state: running;
   }
 }
+
+/* Sass doesn't seem to like variables as rgb so.. */
+.pink-theme {
+	.dot {
+		 background-color: rgba($pink, $dotalpha);
+		
+		&:hover {
+			  background-color: rgba($pink, $dotalphahover);
+		  }
+	}	
+}
+
+.green-theme {
+	.dot {
+		 background-color: rgba($green, $dotalpha);
+		
+		&:hover {
+			  background-color: rgba($green, $dotalphahover);
+		  }
+	}	
+}
+
+.blue-theme {
+	.dot {
+		 background-color: rgba($blue, $dotalpha);
+		
+		&:hover {
+			  background-color: rgba($blue, $dotalphahover);
+		  }
+	}
+}
+
 
 
 @keyframes dotsInPlay {
